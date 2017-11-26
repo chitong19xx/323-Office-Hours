@@ -12,19 +12,25 @@ def get_data():
         pass
     return {'size': 0, 'list': []}
 
+def set_data(d):
+    with open(DATA_PATH, "w") as f:
+        json.dump(d, f)
+
 def get_number_in_queue():
     return get_data()['size']
 
 def set_number_in_queue(num):
     old_data = get_data()
     old_data['size'] = num
-    with open(DATA_PATH, "w") as f:
-        json.dump(old_data, f)
+    set_data(old_data)
+
+def get_queue_list():
+    return get_data()['list']
 
 app = Flask(__name__)
 @app.route('/')
 def report_queue_size():
-    return "The queue has "+str(get_number_in_queue())+" people in it."
+    return "The queue has "+str(get_number_in_queue())+" people in it. This is who they are:\n"+'\n'.join(get_queue_list())
 
 @app.route('/change/<int:size>')
 def change_queue_size(size):
@@ -33,7 +39,11 @@ def change_queue_size(size):
 
 @app.route('/set_list', methods=['POST'])
 def set_list():
-    json = request.get_json(force=True)
+    json_data = request.get_json(force=True)
+    data = get_data()
+    data['list'] = json_data['list']
+    set_data(data)
+
 
 
 if __name__ == '__main__':
