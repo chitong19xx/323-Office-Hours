@@ -30,7 +30,12 @@ def get_queue_list():
 app = Flask(__name__)
 @app.route('/')
 def report_queue_size():
-    return "The queue has "+str(get_number_in_queue())+" people in it. This is who they are:\n"+'\n'.join(get_queue_list())
+    lst = ""
+    for unhappyPerson in get_queue_list():
+        lst += '<li>' + unhappyPerson + '</li>'
+    return ("<p>The queue has "+str(get_number_in_queue())+" people in it.</p>"
+        "<p>This is who they are:</p>"
+        "<ol>"+lst+"</ol>")
 
 @app.route('/change/<int:size>')
 def change_queue_size(size):
