@@ -5,9 +5,12 @@ DATA_PATH = "data.txt"
 number_in_queue = 0
 
 def get_number_in_queue():
-    with open(DATA_PATH, "r") as f:
-        for l in f:
-            return int(l.strip())
+    try:
+        with open(DATA_PATH, "r") as f:
+            for l in f:
+                return int(l.strip())
+    except IOError:
+        pass
     return 0
 
 def set_number_in_queue(num):
