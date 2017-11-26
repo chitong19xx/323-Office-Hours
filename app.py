@@ -12,3 +12,6 @@ def change_queue_size(size):
     global number_in_queue
     number_in_queue = size
     return "Done"
+
+if __name__ == '__main__':
+    app.run(debug=True, use_reloader=True)
