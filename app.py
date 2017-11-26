@@ -43,7 +43,7 @@ def set_list():
     data = get_data()
     data['list'] = json_data['list']
     set_data(data)
-
+    return json.dumps(data)
 
 
 if __name__ == '__main__':
