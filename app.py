@@ -2,8 +2,6 @@ from flask import Flask
 
 DATA_PATH = "data.txt"
 
-number_in_queue = 0
-
 def get_number_in_queue():
     try:
         with open(DATA_PATH, "r") as f:
